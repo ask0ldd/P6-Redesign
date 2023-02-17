@@ -3,7 +3,8 @@
   height: 415px;
   border-radius: 0px;
   overflow: hidden;
-  margin-top: 20px;
+  margin-top: 50px;
+  /*margin-top: 20px;*/
   position: relative;
 }
 
@@ -30,6 +31,7 @@
   margin: auto 0;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .buttons-container div img {
