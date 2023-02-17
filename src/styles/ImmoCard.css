@@ -15,13 +15,13 @@
 }
 
 .immocard:hover {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 20px 20px,
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 20px,
     rgba(0, 0, 0, 0.12) 0px -6px 15px, rgba(0, 0, 0, 0.12) 0px 2px 3px,
-    rgba(0, 0, 0, 0.2) 0px 3px 6px, rgba(0, 0, 0, 0.09) 0px -1px 3px;
+    rgba(0, 0, 0, 0.1) 0px 3px 6px, rgba(0, 0, 0, 0.03) 0px -1px 3px;
   /*outline: 3px solid #fff;*/
   transform: translateY(-20px);
   transform: scale(1.05);
-  border-color: rgba(35, 41, 33, 0.2);
+  /*border-color: rgba(35, 41, 33, 0.1);*/
 }
 
 .immocard:hover img {
