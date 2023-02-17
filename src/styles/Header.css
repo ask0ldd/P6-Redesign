@@ -39,16 +39,19 @@ a:visited {
 a:hover {
   text-decoration: underline;
   color: #5a6c52;
+  text-underline-offset: 5px;
 }
 
 a:active {
   text-decoration: underline;
   color: #5a6c52;
+  text-underline-offset: 5px;
 }
 
 a.active-link {
   text-decoration: underline;
   color: #5a6c52;
+  text-underline-offset: 5px;
 }
 
 @media screen and (max-width: 550px) {
