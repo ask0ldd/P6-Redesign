@@ -8,7 +8,9 @@ import { useFetch } from './hooks/FetchHook'
 function App() {
 
   // using customhook + logements.json dans public directory ie root = window.location.origin
-  const [isLoading, fetchedData, isfetchError] = useFetch(window.location.origin+'/logements.json')
+  let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
+
+  const [isLoading, fetchedData, isfetchError] = useFetch(window.location.origin+ subDir +'/logements.json')
 
   return (
     <div className="App">
