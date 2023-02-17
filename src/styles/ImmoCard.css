@@ -21,6 +21,7 @@
   /*outline: 3px solid #fff;*/
   transform: translateY(-20px);
   transform: scale(1.05);
+  border-color: rgba(35, 41, 33, 0.2);
 }
 
 .immocard:hover img {
