@@ -4,9 +4,11 @@ import APropos from '../pages/APropos';
 import Rental from '../pages/Rental';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+/** basename gh pages **/
+
 const CustomRouter = () => {
     return (
-        <Router>
+        <Router basename="/P6-Redesign">
             <Routes>
                 <Route path='*' element={<Page404 />} />
                 <Route path="/" element={<Home />} />
