@@ -13,7 +13,9 @@ function Rental() {
 
   let rentalId = useParams().id; // get id from the uri
 
-  const [isLoading, jsonDatas, isfetchError] = useFetch(window.location.origin+'/logements.json')
+  let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
+
+  const [isLoading, jsonDatas, isfetchError] = useFetch(window.location.origin + subDir + '/logements.json')
   
   if(isLoading || isfetchError) return (<div className="App"><Header/><Footer/></div>) // as long as data isnt fetched : footer & header only
 

@@ -53,18 +53,18 @@
     margin-top: 30px;
     padding: 15px;
     height: 110px;
-    border-radius: 10px;
+    border-radius: 0px;
   }
 
   .banner-apropos {
     margin-top: 30px;
-    border-radius: 10px;
+    border-radius: 0px;
   }
 }
 
 @media screen and (max-width: 580px) {
   .banner {
-    justify-content: flex-start;
-    padding-left: 1.5ch;
+    justify-content: center;
+    /*padding-left: 1.5ch;*/
   }
 }

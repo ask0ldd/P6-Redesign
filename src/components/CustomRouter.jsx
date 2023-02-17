@@ -8,12 +8,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 const CustomRouter = () => {
     return (
-        <Router basename="/P6-Redesign">
+        <Router basename="/P6-Redesign/">
             <Routes>
                 <Route path='*' element={<Page404 />} />
                 <Route path="/" element={<Home />} />
-                <Route path="/apropos" element={<APropos />}/>
-                <Route path="/hebergement/:id" element={<Rental />}/>
+                <Route path="apropos" element={<APropos />}/>
+                <Route path="hebergement/:id" element={<Rental />}/>
             </Routes>
         </Router>
     )

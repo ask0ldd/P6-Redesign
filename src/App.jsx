@@ -10,7 +10,7 @@ function App() {
   // using customhook + logements.json dans public directory ie root = window.location.origin
   let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
 
-  const [isLoading, fetchedData, isfetchError] = useFetch(window.location.origin+ subDir +'/logements.json')
+  const [isLoading, fetchedData, isfetchError] = useFetch(window.location.origin + subDir +'/logements.json')
 
   return (
     <div className="App">
