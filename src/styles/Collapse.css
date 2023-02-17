@@ -17,6 +17,10 @@
   padding: 0 20px;
 }
 
+.collapse__heading:hover {
+  background: rgba(35, 41, 33, 0.9);
+}
+
 .collapse__heading img {
   margin-top: 2px;
   width: 27px;

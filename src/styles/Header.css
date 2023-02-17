@@ -38,7 +38,7 @@ a:visited {
 
 a:hover {
   text-decoration: underline;
-  color: #5a6c52;
+  color: rgb(35, 41, 33);
   text-underline-offset: 5px;
 }
 
