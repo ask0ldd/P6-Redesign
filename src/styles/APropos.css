@@ -1,0 +1,28 @@
+#collapses-section {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.main-apropos {
+  padding-bottom: 45px;
+  width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  #collapses-section {
+    width: 100%;
+  }
+
+  .main-apropos {
+    padding-bottom: 35px;
+  }
+}
+
+/*@media screen and (max-width: 500px) {
+  .main-apropos {
+    padding-bottom: 10px;
+  }
+}*/

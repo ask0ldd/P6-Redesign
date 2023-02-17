@@ -1,0 +1,20 @@
+#collapsesContainer {
+  display: flex;
+  column-gap: 75px;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+.main-rental {
+  padding-bottom: 45px;
+}
+
+@media screen and (max-width: 800px) {
+  #collapsesContainer {
+    flex-direction: column;
+  }
+
+  .main-rental {
+    padding-bottom: 35px;
+  }
+}

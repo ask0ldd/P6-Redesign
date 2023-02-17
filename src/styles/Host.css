@@ -1,0 +1,30 @@
+.hostContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 10px;
+  row-gap: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #5a6c52;
+  text-align: right;
+}
+
+.hostContainer img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 32px;
+}
+
+@media screen and (max-width: 400px) {
+  .hostContainer img {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+  }
+
+  .hostContainer {
+    font-size: 12px;
+  }
+}

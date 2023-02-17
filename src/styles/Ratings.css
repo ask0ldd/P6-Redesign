@@ -1,0 +1,15 @@
+.star-red {
+  width: 30px;
+  height: 30px;
+}
+.starsContainer {
+  display: flex;
+  column-gap: 10px;
+}
+
+@media screen and (max-width: 400px) {
+  .star-red {
+    width: 15px;
+    height: 15px;
+  }
+}
