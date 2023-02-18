@@ -4,8 +4,9 @@ import '../styles/ImmoCard.css'
 const ImmoCard = (props) => {
     return (
     <article className="immocard">
-        <img src={props.cover} alt="Appartement cosy"/>
+        <img className='mainImg' src={props.cover} alt="Appartement cosy"/>
         <p>{props.title}</p>
+        <img className="favicon" src={props.liked==="false" ? "favoutline.svg" : "favfull.svg"}/>
     </article>
     )
 }
