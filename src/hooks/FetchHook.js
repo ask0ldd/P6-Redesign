@@ -31,8 +31,9 @@ export function useFetch(url, filter) {
             try{
                 const response = await fetch(url)
                 const datas = await response.json()
+                // setFetchedData(datas)
                 const filteredDatas = filteringData(datas)
-                setFetchedData(filteredDatas)
+                filter === false ? setFetchedData(datas) : setFetchedData(filteredDatas)
             }catch(error){
                 console.log(error)
                 setError(true)

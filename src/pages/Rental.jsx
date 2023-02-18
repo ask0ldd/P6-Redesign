@@ -15,9 +15,9 @@ function Rental() {
 
   let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
 
-  const [isLoading, jsonDatas, isfetchError] = useFetch(window.location.origin + subDir + '/logements.json')
+  const [isLoading, jsonDatas, isfetchError] = useFetch(window.location.origin + subDir + '/logements.json', false)
   
-  if(isLoading || isfetchError) return (<div className="App"><Header/><Footer/></div>) // as long as data isnt fetched : footer & header only
+  if(isLoading || isfetchError) return (<div className="App"><Header/><div style={{height:"100vh"}}></div><Footer/></div>) // as long as data isnt fetched : footer & header only
 
   const rentalDatas = Array.prototype.filter.call(jsonDatas, (x) => x.id === rentalId)[0] // check with filter if could find one object containing the useparams id 
   if(rentalDatas === undefined) return (<Navigate to="/404" replace={true} />) // if not : route /404 not defined so 404
