@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export function useFetch(url, filter) {
+export function useFetch(url, filter, setResults) {
 
     const [fetchedData, setFetchedData] = useState()
     const [isLoading, setLoading] = useState(true)
@@ -10,12 +10,13 @@ export function useFetch(url, filter) {
     const filteringData = (datas) => {
         console.log(datas)
         if(filter[0] === "any" && filter[1] === "any") return datas
-        if(filter[0] === "rating") return datas.filter(data => data[filter[0]] === filter[1])
-        if(filter[0] === "tags") return datas.filter(data => data[filter[0]].includes(filter[1]))
-        if(filter[0] === "location") 
+        switch(filter[0])
         {
-            if (filter[1] === "Paris") return datas.filter(data => data[filter[0]].includes(filter[1]))
-            if (filter[1] === "HorsParis") return datas.filter(data => data[filter[0]].includes(filter[1]) === false)
+            case 'rating': return datas.filter(data => data[filter[0]] === filter[1])
+            case 'tags' : return datas.filter(data => data[filter[0]].includes(filter[1]))
+            case 'location' :
+                if (filter[1] === "Paris") return datas.filter(data => data[filter[0]].includes(filter[1]))
+                if (filter[1] === "HorsParis") return datas.filter(data => !data[filter[0]].includes("Paris"))
         }
         return undefined
     }
@@ -33,7 +34,14 @@ export function useFetch(url, filter) {
                 const datas = await response.json()
                 // setFetchedData(datas)
                 const filteredDatas = filteringData(datas)
-                filter === false ? setFetchedData(datas) : setFetchedData(filteredDatas)
+                if(filter === false)
+                {
+                    if(setResults) setResults(datas.length)
+                    setFetchedData(datas)
+                } else {
+                    if(setResults) setResults(filteredDatas.length)
+                    setFetchedData(filteredDatas)
+                }
             }catch(error){
                 console.log(error)
                 setError(true)

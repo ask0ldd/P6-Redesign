@@ -13,16 +13,16 @@ function App() {
   let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
 
   const [ filterValue, setFilterValue ] = useState(["any", "any"])
+  const [ nResults, setnResults ] = useState(0)
 
-  const [isLoading, fetchedData, isfetchError] = useFetch(window.location.origin + subDir + '/logements.json', filterValue)
+  const [isLoading, fetchedData, isfetchError] = useFetch(window.location.origin + subDir + '/logements.json', filterValue, setnResults)
 
   return (
     <div className="App">
       <Header/>
         <main className='main-home'>
           <Banner key="standard" type="standard"/>
-          <div>{`${filterValue[0]} : ${filterValue[1]}`}</div>
-          <Filters setfv={setFilterValue}/>
+          <Filters nResults={nResults} setfv={setFilterValue}/>
           <Gallery dataset={fetchedData} error={isfetchError} loadingState={isLoading} />
         </main>
       <Footer/>
