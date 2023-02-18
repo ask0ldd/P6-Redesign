@@ -1,5 +1,4 @@
 import '../styles/Filters.css'
-import logo from '../assets/kasa-blanc.svg'
 
 const Filters = (props) => {
 
@@ -18,8 +17,8 @@ const Filters = (props) => {
                 <option value="location:HorsParis">Hors Paris</option>
                 <option value="tags:Appartement">Appartement</option>
                 <option value="tags:Studio">Studio</option>
-                <option value="rating:3">3 étoiles et plus</option>
-                <option value="rating:4">4 étoiles et plus</option>
+                <option value="rating:3">3 étoiles & plus</option>
+                <option value="rating:4">4 étoiles & plus</option>
             </select>          
         </div>
     )

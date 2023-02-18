@@ -8,7 +8,6 @@ export function useFetch(url, filter, setResults) {
 
 
     const filteringData = (datas) => {
-        console.log(datas)
         if(filter[0] === "any" && filter[1] === "any") return datas
         switch(filter[0])
         {
