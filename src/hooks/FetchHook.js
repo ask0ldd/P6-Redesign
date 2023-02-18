@@ -1,10 +1,24 @@
 import { useState, useEffect } from 'react'
 
-export function useFetch(url) {
+export function useFetch(url, filter) {
 
     const [fetchedData, setFetchedData] = useState()
     const [isLoading, setLoading] = useState(true)
     const [isError, setError] = useState(false)
+
+
+    const filteringData = (datas) => {
+        console.log(datas)
+        if(filter[0] === "any" && filter[1] === "any") return datas
+        if(filter[0] === "rating") return datas.filter(data => data[filter[0]] === filter[1])
+        if(filter[0] === "tags") return datas.filter(data => data[filter[0]].includes(filter[1]))
+        if(filter[0] === "location") 
+        {
+            if (filter[1] === "Paris") return datas.filter(data => data[filter[0]].includes(filter[1]))
+            if (filter[1] === "HorsParis") return datas.filter(data => data[filter[0]].includes(filter[1]) === false)
+        }
+        return undefined
+    }
 
     useEffect(() => {
 
@@ -16,8 +30,9 @@ export function useFetch(url) {
 
             try{
                 const response = await fetch(url)
-                const data = await response.json()
-                setFetchedData(data)
+                const datas = await response.json()
+                const filteredDatas = filteringData(datas)
+                setFetchedData(filteredDatas)
             }catch(error){
                 console.log(error)
                 setError(true)
@@ -29,7 +44,7 @@ export function useFetch(url) {
             
         fetchData()
 
-    }, [url]) // url to avoid infinite loop triggered by useState uses.
+    }, [url, filter]) // url to avoid infinite loop triggered by useState uses.
 
 return [isLoading, fetchedData, isError]
 }

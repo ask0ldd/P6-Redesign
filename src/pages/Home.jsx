@@ -12,16 +12,16 @@ function App() {
   // using customhook + logements.json dans public directory ie root = window.location.origin
   let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
 
-  const [isLoading, fetchedData, isfetchError] = useFetch(window.location.origin + subDir + '/logements.json')
+  const [ filterValue, setFilterValue ] = useState(["any", "any"])
 
-  const [ filterValue, setFilterValue ] = useState("any")
+  const [isLoading, fetchedData, isfetchError] = useFetch(window.location.origin + subDir + '/logements.json', filterValue)
 
   return (
     <div className="App">
       <Header/>
         <main className='main-home'>
           <Banner key="standard" type="standard"/>
-          <div>{filterValue}</div>
+          <div>{`${filterValue[0]} : ${filterValue[1]}`}</div>
           <Filters setfv={setFilterValue}/>
           <Gallery dataset={fetchedData} error={isfetchError} loadingState={isLoading} />
         </main>
