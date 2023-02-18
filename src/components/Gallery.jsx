@@ -6,13 +6,22 @@ import { useState } from 'react'
 
 const Gallery = (props) => {
 
-    const [likesList, setLikes] = useState(['c67ab8a7'])
+    const [likesList, setLikes] = useState([])
+
+    if((likesList.length === 0) && (window.localStorage.getItem('likes') !== null)) setLikes(JSON.parse(window.localStorage.getItem('likes')))
 
     const addLike = (rentalId) => {
         let likesListCopy = [...likesList]
         likesListCopy.push(rentalId)
         setLikes(likesListCopy)
-        console.log(likesList)
+        window.localStorage.setItem('likes', JSON.stringify(likesListCopy))
+    }
+
+    const removeLike = (rentalId) => {
+        let likesListCopy = [...likesList]
+        likesListCopy.splice(likesListCopy.indexOf(rentalId), 1)
+        setLikes(likesListCopy)
+        window.localStorage.setItem('likes', JSON.stringify(likesListCopy))
     }
 
     return (
@@ -20,7 +29,7 @@ const Gallery = (props) => {
         {
             (props.dataset && /* if datas got fetched */
                 props.dataset.map((logement) => (<Link className="anchor" to={"hebergement/"+logement.id} key={logement.id}>
-                    <ImmoCard addLike={addLike} likes={likesList} title={logement.title} cover={logement.cover} rentalId={logement.id}/></Link>)))
+                    <ImmoCard addLike={addLike} removeLike={removeLike} likes={likesList} title={logement.title} cover={logement.cover} rentalId={logement.id}/></Link>)))
             || ((props.error && !props.loadingState) && /* !props.loadingState > don't show the error div when no real error, ie : it's only loading */
                 <ErrorBox />)}
     </section>
