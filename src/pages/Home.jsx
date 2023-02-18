@@ -5,6 +5,7 @@ import Gallery from '../components/Gallery'
 import Footer from '../components/Footer'
 import Filters from '../components/Filters'
 import { useFetch } from '../hooks/FetchHook'
+import { useRef } from 'react'
 
 function App() {
 
@@ -13,14 +14,14 @@ function App() {
 
   const [isLoading, fetchedData, isfetchError] = useFetch(window.location.origin + subDir + '/logements.json')
 
-
+  const filterValue = useRef("any")
 
   return (
     <div className="App">
       <Header/>
         <main className='main-home'>
           <Banner key="standard" type="standard"/>
-          <Filters/>
+          <Filters ref={filterValue}/>
           <Gallery dataset={fetchedData} error={isfetchError} loadingState={isLoading} />
         </main>
       <Footer/>

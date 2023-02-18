@@ -4,6 +4,7 @@ import logo from '../assets/kasa-blanc.svg'
 const Filters = () => {
     return (
         <div id="filtersContainer">
+            <span style={{marginRight:"auto"}}>X logements temporaires satisfont vos critères.</span>
             <label for="filtres">Filtres :</label>
             <select id="filtres" name="filtres">
                 <option value="any">tous</option>
