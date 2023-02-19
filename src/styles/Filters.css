@@ -26,6 +26,10 @@
   background: #e3ecde;
   border-radius: 5px;
   border-width: 1px;
+  background-image: url("arrow.png");
+  background-repeat: no-repeat;
+  background-position: right 9px top 50%;
+  background-size: 1rem auto;
 }
 
 #filtersContainer option {

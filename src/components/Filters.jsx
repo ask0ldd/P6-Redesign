@@ -4,7 +4,7 @@ const Filters = (props) => {
 
     const toRef = () => { // when a new option is selected : modify the filterValue parent state
         const [filterType, filterValue] = document.querySelector("#filtres").value.split(":")
-        props.setfv([filterType, filterValue]) 
+        props.setFv([filterType, filterValue]) 
     }
 
     return (

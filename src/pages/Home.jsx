@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 function App() {
 
-  // using customhook + logements.json dans public directory ie root = window.location.origin
+  // different basename if online
   let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
 
   const [ filterValue, setFilterValue ] = useState(["any", "any"])
@@ -22,7 +22,7 @@ function App() {
       <Header/>
         <main className='main-home'>
           <Banner key="standard" type="standard"/>
-          <Filters nResults={nResults} setfv={setFilterValue}/>
+          <Filters nResults={nResults} setFv={setFilterValue}/>
           <Gallery dataset={fetchedData} error={isfetchError} loadingState={isLoading} />
         </main>
       <Footer/>
