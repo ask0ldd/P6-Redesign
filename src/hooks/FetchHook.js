@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import React from 'react'
 
 export function useFetch(url, filter, setResults) {
 
@@ -7,7 +8,7 @@ export function useFetch(url, filter, setResults) {
     const [isError, setError] = useState(false)
 
 
-    const filteringData = (datas) => {
+    const filteringData = (datas, filter) => {
         if(filter[0] === "any" && filter[1] === "any") return datas
         switch(filter[0])
         {
@@ -31,8 +32,7 @@ export function useFetch(url, filter, setResults) {
             try{
                 const response = await fetch(url)
                 const datas = await response.json()
-                // setFetchedData(datas)
-                const filteredDatas = filteringData(datas)
+                const filteredDatas = filteringData(datas, filter)
                 if(filter === false)
                 {
                     if(setResults) setResults(datas.length)
@@ -54,5 +54,5 @@ export function useFetch(url, filter, setResults) {
 
     }, [url, filter]) // url to avoid infinite loop triggered by useState uses.
 
-return [isLoading, fetchedData, isError]
+return [isLoading, fetchedData, isError, filteringData] // returning filteringData only for testing purposes
 }
