@@ -7,7 +7,7 @@ import Filters from '../components/Filters'
 import { useFetch } from '../hooks/FetchHook'
 import { useState } from 'react'
 
-function App() {
+function Home() {
 
   // different basename if online
   let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
@@ -30,4 +30,4 @@ function App() {
   );
 }
 
-export default App
+export default Home
