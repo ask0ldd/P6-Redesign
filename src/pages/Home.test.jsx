@@ -15,7 +15,9 @@ const bodytoTestFile = () => {
   fs.writeFile('../test.txt', document.body.innerHTML, err => { if (err) { console.error(err) } })
 }
 
-const MockedRouter = () => {
+// to avoid useLocation / Links issues which needs to be in a router,
+// so rendering <Home/> alone can't be an option
+const MockedRouter = () => { 
   return(
     <BrowserRouter>
       <Home/>
@@ -26,11 +28,9 @@ const MockedRouter = () => {
 test('Home should contains the -partout et ailleurs- in its banner', () => {
   
   render(<MockedRouter />);
-  //const app = new Home()
   global.fetch = vi.fn()
   /*const { result } = renderHook(() => useFetch());
-  const { result2 } = renderHook(() => useState());
-  const { result3 } = renderHook(() => useLocation());*/
+  const { result2 } = renderHook(() => useState());*/
 
   bodytoTestFile()
 
