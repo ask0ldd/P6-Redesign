@@ -26,11 +26,13 @@ const MockedRouter = () => {
 test('Home should contains the -partout et ailleurs- in its banner', async () => {
 
   // recreate two successive promises to mock fetch behavior
-  const mockJsonPromise = Promise.resolve(mockedDatas)
-  const mockFetchPromise = Promise.resolve({ json: () => mockJsonPromise })
-  window.fetch = vi.fn().mockImplementation(() => mockFetchPromise)
+  const mockedJsonPromise = Promise.resolve(mockedDatas)
+  const mockedFetchPromise = Promise.resolve({ json: () => mockedJsonPromise })
+  window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
 
+  // act(() => {
   render(<MockedRouter />)
+  // })
 
   // wait for the right rerender (the one triggered by fetch / rendering the articles in the gallery) before moving on
   await waitFor(() => screen.getAllByTestId('favicon'))
@@ -38,6 +40,6 @@ test('Home should contains the -partout et ailleurs- in its banner', async () =>
   const linkElement = screen.getByText(/partout et ailleurs/i);
 
   bodytoTestFile()
-  //expect(linkElement).toBeInTheDocument();
+  expect(linkElement).toBeInTheDocument();
 
 });

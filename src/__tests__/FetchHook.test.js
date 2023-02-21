@@ -37,9 +37,9 @@ const firstItem = {
 }
 
 test('if non filtered mockeddatas = itself after treatment', () => {
-  global.fetch = vi.fn()
-  const { result } = renderHook(() => useFetch());
-  const [isLoading, fetchedData, isfetchError, filteringData] = result.current;
+  global.fetch = vi.fn() // mocked blank function so fetch won't provide any date
+  const { result } = renderHook(() => useFetch())
+  const [isLoading, fetchedData, isfetchError, filteringData] = result.current
   let datas
   act(() => {
     datas = filteringData(mockedDatas , ['any', 'any'])
@@ -49,8 +49,8 @@ test('if non filtered mockeddatas = itself after treatment', () => {
 
 test('if non filtered mockeddatas item 1 = itself after treatment', () => {
   global.fetch = vi.fn()
-  const { result } = renderHook(() => useFetch());
-  const [isLoading, fetchedData, isfetchError, filteringData] = result.current;
+  const { result } = renderHook(() => useFetch())
+  const [isLoading, fetchedData, isfetchError, filteringData] = result.current
   let datas
   act(() => {
     datas = filteringData(mockedDatas[0] , ['any', 'any'])
