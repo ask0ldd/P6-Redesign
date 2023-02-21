@@ -1,12 +1,11 @@
 // JSX FILE EXT NEEDED
-
-import { render, screen } from '@testing-library/react'
-import { useState } from 'react'
+import { render, screen, renderHook, act, waitFor } from '@testing-library/react'
 import Home from './Home'
-import CustomRouter from '../components/CustomRouter'
 import { BrowserRouter } from 'react-router-dom'
 import matchers from '@testing-library/jest-dom/matchers'
-import { expect } from 'vitest'
+import { expect, vi } from 'vitest'
+import mockedDatas from '../__tests__/mockRentalDatas'
+// import { useFetch } from '../hooks/FetchHook'
 
 expect.extend(matchers)
 
@@ -25,15 +24,19 @@ const MockedRouter = () => {
   )
 }
 
-test('Home should contains the -partout et ailleurs- in its banner', () => {
-  
+test('Home should contains the -partout et ailleurs- in its banner', async () => {
+
+const mockJsonPromise = Promise.resolve(mockedDatas)
+const mockFetchPromise = Promise.resolve({
+  json: () => mockJsonPromise
+})
+
+  window.fetch = vi.fn().mockImplementation(() => mockFetchPromise)
   render(<MockedRouter />);
-  global.fetch = vi.fn()
-  /*const { result } = renderHook(() => useFetch());
-  const { result2 } = renderHook(() => useState());*/
+  await waitFor(() => screen.getAllByTestId('favicon'))
+
+  const linkElement = screen.getByText(/partout et ailleurs/i);
 
   bodytoTestFile()
-
-  const linkElement = screen.getByText(/partout/i);
-  expect(linkElement).toBeInTheDocument();
+  //expect(linkElement).toBeInTheDocument();
 });
