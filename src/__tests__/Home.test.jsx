@@ -37,9 +37,10 @@ test('Home should contains the -partout et ailleurs- in its banner', async () =>
   // wait for the right rerender (the one triggered by fetch / rendering the articles in the gallery) before moving on
   await waitFor(() => screen.getAllByTestId('favicon'))
 
-  const linkElement = screen.getByText(/partout et ailleurs/i);
-
   bodytoTestFile()
-  expect(linkElement).toBeInTheDocument();
+  expect(screen.getByText(/partout et ailleurs/i)).toBeInTheDocument()
+  expect(screen.getByText(/Appartement cosy/i)).toBeInTheDocument()
+  expect(screen.getByText(/Magnifique appartement proche Canal Saint Martin/i)).toBeInTheDocument()
+  expect(screen.getByText(/Studio de charme - Buttes Chaumont/i)).toBeInTheDocument()
 
 });
