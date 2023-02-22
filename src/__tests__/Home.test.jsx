@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { expect, vi } from 'vitest'
 import mockedDatas from './mockRentalDatas'
 import { useLikesState } from '../hooks/useLikesState.js'
+import React from "react";
 
 
 expect.extend(matchers)
@@ -61,35 +62,33 @@ describe('Given I am on the home page', async () => {
 
   test('If rental 1 & 3 are added to favs & 2 isnt then 1 & 3 should display a fav icon while 2 should display a non fav one', async () => {
 
-    const { result } = renderHook(() => useLikesState())
+    /*const { result } = renderHook(() => useLikesState())
 
-    const [addLike, storagetoLikesList, removeLike, likesList] = result.current
+    const [addLike, storagetoLikesList, removeLike, likesList] = result.current*/
     
-    act(() => {
+    /*await act(async () => {
       // addLike(mockedDatas[2].id)
       addLike(mockedDatas[0].id) 
-      console.log(likesList)
-    })
-
-    const { rerender, debug } = render(<MockedRouter />)
-
-    /*act(() => {
-      // addLike(mockedDatas[0].id)
-      addLike(mockedDatas[2].id)
-      rerender(<MockedRouter />)
     })*/
 
-    await waitFor(() => screen.getAllByTestId('favicon'))
+    /*console.log(likesList)
+    console.log(JSON.parse(window.localStorage.getItem('likes')))*/
+
+    render(<MockedRouter />)
+
+    await waitFor( async () => screen.getAllByTestId('favicon'))
 
     const favIcons = screen.getAllByTestId('favicon')
 
-    expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg')
+    userEvent.click(favIcons[0])
+    userEvent.click(favIcons[2])
+
+    await waitFor( async () => expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg'))
+    expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg')
     expect(getFilenameFromUrl(favIcons[1].src)).toBe('favoutline.svg')
-    // expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg') 
 
-    //bodytoTestFile()
+    bodytoTestFile()
 
-    // debug()
   })
 })
 
