@@ -39,12 +39,7 @@ describe('Given I am on the home page', async () => {
     const mockedJsonPromise = Promise.resolve(mockedDatas)
     const mockedFetchPromise = Promise.resolve({ json: () => mockedJsonPromise })
     window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
-    console.log("before")
   })
-
-  // act(() => {
-  // render(<MockedRouter />)
-  // })
 
   test('a -partout et ailleurs- banner should be displayed', async () => {
 
@@ -61,18 +56,6 @@ describe('Given I am on the home page', async () => {
   })
 
   test('If rental 1 & 3 are added to favs & 2 isnt then 1 & 3 should display a fav icon while 2 should display a non fav one', async () => {
-
-    /*const { result } = renderHook(() => useLikesState())
-
-    const [addLike, storagetoLikesList, removeLike, likesList] = result.current*/
-    
-    /*await act(async () => {
-      // addLike(mockedDatas[2].id)
-      addLike(mockedDatas[0].id) 
-    })*/
-
-    /*console.log(likesList)
-    console.log(JSON.parse(window.localStorage.getItem('likes')))*/
 
     render(<MockedRouter />)
 
@@ -99,6 +82,13 @@ describe('Given I am on the home page', async () => {
     userEvent.click(favIcons[0])
     })
 
-    console.log(likesList)
-
 */
+
+    /*const { result } = renderHook(() => useLikesState())
+
+    const [addLike, storagetoLikesList, removeLike, likesList] = result.current*/
+    
+    /*await act(async () => {
+      // addLike(mockedDatas[2].id)
+      addLike(mockedDatas[0].id) 
+    })*/
