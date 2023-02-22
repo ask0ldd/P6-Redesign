@@ -6,7 +6,7 @@ import Home from '../pages/Home.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { expect, vi } from 'vitest'
 import mockedDatas from './mockRentalDatas'
-
+import Gallery from '../components/Gallery'
 
 expect.extend(matchers)
 
@@ -36,11 +36,11 @@ describe('Given I am on the home page', async () => {
   // render(<MockedRouter />)
   // })
 
-  // wait for the right rerender before proceeding (the one triggered by fetch / rendering the articles in the gallery) before moving on
-
   test('a -partout et ailleurs- banner should be displayed', async () => {
 
     render(<MockedRouter />)
+
+    // wait for the right rerender before proceeding (the one triggered by fetch / rendering the articles in the gallery) before moving on
     await waitFor(() => screen.getAllByTestId('favicon'))
 
     expect(screen.getByText(/partout et ailleurs/i)).toBeInTheDocument()
@@ -55,13 +55,25 @@ describe('Given I am on the home page', async () => {
     render(<MockedRouter />)
     await waitFor(() => screen.getAllByTestId('favicon'))
 
-    bodytoTestFile()
-
     const favIcons = screen.getAllByTestId('favicon')
     const firstFavIconSrc = favIcons[0].src
     const splitUrl = favIcons[0].src.split('/')
     expect(splitUrl[splitUrl.length-1]).toBe('favoutline.svg')
-    /*userEvent.click(favIcons[0])
+
+    //const gallery = Gallery()
+    //gallery.addLike()
+    // const { result } = renderHook(() => Gallery())
+    const onFavIconClick = vi.fn(Gallery().addLike)
+    favIcons[0].addEventListener("click", onFavIconClick) 
+    userEvent.click(favIcons[0])
+
+    await waitFor(() => favIcons[0].src==="favfull.svg")
+
+    console.log(favIcons[0].src)
+
+    //bodytoTestFile()
+    
+    /*
     await waitFor(() => firstFavIconSrc!==favIcons.src)
     const splitUrlAfterClick = favIcons[0].src.split('/')
     expect(splitUrlAfterClick[splitUrlAfterClick.length-1]).toBe('favfull.svg')*/
