@@ -6,13 +6,19 @@ import Home from '../pages/Home.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { expect, vi } from 'vitest'
 import mockedDatas from './mockRentalDatas'
-import {addLike, removeLike} from '../components/Gallery'
+import { useLikesState } from '../hooks/useLikesState.js'
+
 
 expect.extend(matchers)
 
 const fs = require('fs')
 const bodytoTestFile = () => {
   fs.writeFile('../test.txt', document.body.innerHTML, err => { if (err) { console.error(err) } })
+}
+
+const getFilenameFromUrl = (url) => {
+  const segments = url.split('/')
+  return segments[segments.length-1]
 }
 
 // to avoid useLocation / Links issues which needs to be in a router,
@@ -50,39 +56,45 @@ describe('Given I am on the home page', async () => {
 
   })
 
-  test('If I click on an inactive favicon, an active favicon should replace it', async () => {
+  test('If rental 1 & 3 are added to favs & 2 isnt then 1 & 3 should display a fav icon while 2 should display a non fav one', async () => {
 
-    window.localStorage.setItem = vi.fn().mockImplementation((key, value) => {
-      console.log(value)
+    const { result } = renderHook(() => useLikesState())
+
+    const [addLike, addLikes, removeLike, likesList] = result.current
+    
+    act(() => {
+      addLike(mockedDatas[0].id)
+      // addLike(mockedDatas[2].id)
     })
 
     render(<MockedRouter />)
+
+    act(() => {
+      // addLike(mockedDatas[0].id)
+      addLike(mockedDatas[2].id)
+    })
+
+
     await waitFor(() => screen.getAllByTestId('favicon'))
 
     const favIcons = screen.getAllByTestId('favicon')
-    const firstFavIconSrc = favIcons[0].src
-    const splitUrl = favIcons[0].src.split('/')
-    expect(splitUrl[splitUrl.length-1]).toBe('favoutline.svg')
 
-    const likesList = []
-    const setLikes = vi.fn()
+    expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg')
+    expect(getFilenameFromUrl(favIcons[1].src)).toBe('favoutline.svg')
+    expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg')
 
-    const onFavIconClick = vi.fn(() => addLike('c67ab8a7', likesList, setLikes))
-    favIcons[0].addEventListener("click", onFavIconClick) 
-    userEvent.click(favIcons[0])
-
-    // rerender()
-    await waitFor(() => favIcons[0].src==="favfull.svg")
-
-    // console.log(favIcons[0].src)
-    //console.log(window.localStorage.getItem('likes'))
-
-    //bodytoTestFile()
-    
-    /*
-    await waitFor(() => firstFavIconSrc!==favIcons.src)
-    const splitUrlAfterClick = favIcons[0].src.split('/')
-    expect(splitUrlAfterClick[splitUrlAfterClick.length-1]).toBe('favfull.svg')*/
-
+    bodytoTestFile()
+ 
   })
 })
+
+/*
+    const onFavIconClick = vi.fn(() => addLike('c67ab8a7'))
+    favIcons[0].addEventListener("click", onFavIconClick)
+    act(() => {
+    userEvent.click(favIcons[0])
+    })
+
+    console.log(likesList)
+
+*/

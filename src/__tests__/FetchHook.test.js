@@ -1,5 +1,5 @@
 import { vitest } from 'vitest'
-import { useFetch } from '../hooks/FetchHook'
+import { useFetch } from '../hooks/useFetch'
 import { describe, expect, test, vi } from 'vitest'
 import { act, renderHook } from '@testing-library/react'
 import mockedDatas from './mockRentalDatas'

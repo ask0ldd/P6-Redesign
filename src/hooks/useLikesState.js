@@ -11,8 +11,8 @@ export function useLikesState(){
         window.localStorage.setItem('likes', JSON.stringify(likesListCopy))
     }
 
-    const addLikes = (multipleIds) => {
-        setLikes(multipleIds)
+    const storagetoLikesList = () => {
+        setLikes(JSON.parse(window.localStorage.getItem('likes')))
     }
     
     const removeLike = (rentalId) => {
@@ -26,5 +26,5 @@ export function useLikesState(){
         window.localStorage.setItem('likes', JSON.stringify(likesListCopy))
     }
 
-    return [addLike, addLikes, removeLike, likesList]
+    return [addLike, storagetoLikesList, removeLike, likesList]
 }

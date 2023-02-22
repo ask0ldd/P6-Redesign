@@ -7,10 +7,10 @@ import { useLikesState } from '../hooks/useLikesState'
 
 const Gallery = (props) => {
 
-    const [addLike, addLikes, removeLike, likesList] = useLikesState()
+    const [addLike, storagetoLikesList, removeLike, likesList] = useLikesState()
 
     if((likesList.length === 0) && (window.localStorage.getItem('likes') !== null)) {
-        addLikes(JSON.parse(window.localStorage.getItem('likes')))
+        storagetoLikesList()
     }
 
     return (
