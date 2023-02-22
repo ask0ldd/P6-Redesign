@@ -23,7 +23,7 @@ const MockedRouter = () => {
   )
 }
 
-test('Home should contains the -partout et ailleurs- in its banner', async () => {
+describe('Given I am on the home page', async () => {
 
   // recreate two successive promises to mock fetch behavior
   const mockedJsonPromise = Promise.resolve(mockedDatas)
@@ -38,9 +38,18 @@ test('Home should contains the -partout et ailleurs- in its banner', async () =>
   await waitFor(() => screen.getAllByTestId('favicon'))
 
   bodytoTestFile()
-  expect(screen.getByText(/partout et ailleurs/i)).toBeInTheDocument()
-  expect(screen.getByText(/Appartement cosy/i)).toBeInTheDocument()
-  expect(screen.getByText(/Magnifique appartement proche Canal Saint Martin/i)).toBeInTheDocument()
-  expect(screen.getByText(/Studio de charme - Buttes Chaumont/i)).toBeInTheDocument()
 
-});
+  test('a -partout et ailleurs- banner should be displayed', async () => {
+
+    
+    expect(screen.getByText(/partout et ailleurs/i)).toBeInTheDocument()
+    expect(screen.getByText(/Appartement cosy/i)).toBeInTheDocument()
+    expect(screen.getByText(/Magnifique appartement proche Canal Saint Martin/i)).toBeInTheDocument()
+    expect(screen.getByText(/Studio de charme - Buttes Chaumont/i)).toBeInTheDocument()
+
+  })
+
+  test('If I click on an inactive favicon, an active favicon should replace it', () => {
+    
+  })
+})
