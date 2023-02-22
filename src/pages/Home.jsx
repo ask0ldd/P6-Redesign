@@ -4,7 +4,7 @@ import Banner from '../components/Banner'
 import Gallery from '../components/Gallery'
 import Footer from '../components/Footer'
 import Filters from '../components/Filters'
-import { useFetch } from '../hooks/FetchHook'
+import { useFetch } from '../hooks/useFetch'
 import { useState } from 'react'
 
 function Home() {

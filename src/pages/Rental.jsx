@@ -7,7 +7,7 @@ import Slideshow from '../components/Slideshow'
 import RentalDetails from '../components/RentalDetails'
 import { useParams } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
-import { useFetch } from '../hooks/FetchHook'
+import { useFetch } from '../hooks/useFetch'
 
 function Rental() {
 

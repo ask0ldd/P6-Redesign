@@ -14,7 +14,7 @@ const ImmoCard = (props) => {
         <img data-testid='favicon' className="favicon" src={props.likes?.includes(props.rentalId) ? "favfull.svg" : "favoutline.svg"} 
         onClick={(e) => {
             e.preventDefault(); e.stopPropagation(); 
-            props.likes?.includes(props.rentalId) ? props.removeLike(props.rentalId, props.likes, props.setLikes) : props.addLike(props.rentalId, props.likes, props.setLikes)
+            props.likes?.includes(props.rentalId) ? props.removeLike(props.rentalId) : props.addLike(props.rentalId)
             }}/>
     </article>
     )
