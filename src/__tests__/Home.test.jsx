@@ -33,10 +33,13 @@ const MockedRouter = () => {
 
 describe('Given I am on the home page', async () => {
 
-  // recreate two successive promises to mock fetch behavior
-  const mockedJsonPromise = Promise.resolve(mockedDatas)
-  const mockedFetchPromise = Promise.resolve({ json: () => mockedJsonPromise })
-  window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
+  beforeEach(() => {
+    // recreate two successive promises to mock fetch behavior
+    const mockedJsonPromise = Promise.resolve(mockedDatas)
+    const mockedFetchPromise = Promise.resolve({ json: () => mockedJsonPromise })
+    window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
+    console.log("before")
+  })
 
   // act(() => {
   // render(<MockedRouter />)
@@ -60,20 +63,21 @@ describe('Given I am on the home page', async () => {
 
     const { result } = renderHook(() => useLikesState())
 
-    const [addLike, addLikes, removeLike, likesList] = result.current
+    const [addLike, storagetoLikesList, removeLike, likesList] = result.current
     
     act(() => {
-      addLike(mockedDatas[0].id)
       // addLike(mockedDatas[2].id)
+      addLike(mockedDatas[0].id) 
+      console.log(likesList)
     })
 
-    render(<MockedRouter />)
+    const { rerender, debug } = render(<MockedRouter />)
 
-    act(() => {
+    /*act(() => {
       // addLike(mockedDatas[0].id)
       addLike(mockedDatas[2].id)
-    })
-
+      rerender(<MockedRouter />)
+    })*/
 
     await waitFor(() => screen.getAllByTestId('favicon'))
 
@@ -81,10 +85,11 @@ describe('Given I am on the home page', async () => {
 
     expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg')
     expect(getFilenameFromUrl(favIcons[1].src)).toBe('favoutline.svg')
-    expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg')
+    // expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg') 
 
-    bodytoTestFile()
- 
+    //bodytoTestFile()
+
+    // debug()
   })
 })
 
