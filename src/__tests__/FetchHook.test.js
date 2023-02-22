@@ -5,16 +5,15 @@ import { act, renderHook } from '@testing-library/react'
 import mockedDatas from './mockRentalDatas'
 
 
-const firstItem = {
+const firstItem = 	{
   "id": "c67ab8a7",
   "title": "Appartement cosy",
-  "cover": "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-20-1.jpg",
+  "cover": "locs/loc1.jpg",
   "pictures": [
-    "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-20-1.jpg",
-    "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-20-2.jpg",
-    "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-20-3.jpg",
-    "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-20-4.jpg",
-    "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/accommodation-20-5.jpg"
+    "../locs/loc1.jpg",
+    "../locs/loc9.jpg",
+    "../locs/loc14.jpg",
+    "../locs/loc16.jpg"
   ],
   "description": "Votre maison loin de chez vous. Que vous veniez de l'autre bout du monde, ou juste de quelques stations de RER, vous vous sentirez chez vous dans notre appartement.",
   "host": {

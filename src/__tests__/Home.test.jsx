@@ -1,10 +1,10 @@
 // JSX FILE EXT NEEDED
 import { render, screen, renderHook, act, waitFor } from '@testing-library/react'
-import Home from './Home'
+import Home from '../pages/Home.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import matchers from '@testing-library/jest-dom/matchers'
 import { expect, vi } from 'vitest'
-import mockedDatas from '../__tests__/mockRentalDatas'
+import mockedDatas from './mockRentalDatas'
 
 expect.extend(matchers)
 
