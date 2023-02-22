@@ -6,7 +6,7 @@ import Home from '../pages/Home.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { expect, vi } from 'vitest'
 import mockedDatas from './mockRentalDatas'
-import Gallery from '../components/Gallery'
+import {addLike, removeLike} from '../components/Gallery'
 
 expect.extend(matchers)
 
@@ -52,6 +52,10 @@ describe('Given I am on the home page', async () => {
 
   test('If I click on an inactive favicon, an active favicon should replace it', async () => {
 
+    window.localStorage.setItem = vi.fn().mockImplementation((key, value) => {
+      console.log(value)
+    })
+
     render(<MockedRouter />)
     await waitFor(() => screen.getAllByTestId('favicon'))
 
@@ -60,16 +64,18 @@ describe('Given I am on the home page', async () => {
     const splitUrl = favIcons[0].src.split('/')
     expect(splitUrl[splitUrl.length-1]).toBe('favoutline.svg')
 
-    //const gallery = Gallery()
-    //gallery.addLike()
-    // const { result } = renderHook(() => Gallery())
-    const onFavIconClick = vi.fn(Gallery().addLike)
+    const likesList = []
+    const setLikes = vi.fn()
+
+    const onFavIconClick = vi.fn(() => addLike('c67ab8a7', likesList, setLikes))
     favIcons[0].addEventListener("click", onFavIconClick) 
     userEvent.click(favIcons[0])
 
+    // rerender()
     await waitFor(() => favIcons[0].src==="favfull.svg")
 
-    console.log(favIcons[0].src)
+    // console.log(favIcons[0].src)
+    //console.log(window.localStorage.getItem('likes'))
 
     //bodytoTestFile()
     
