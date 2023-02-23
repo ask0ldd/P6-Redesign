@@ -11,7 +11,7 @@ const Filters = (props) => {
         <div id="filtersContainer">
             <span style={{marginRight:"auto"}}>{(props.nResults) && props.nResults} logements temporaires satisfont vos critères.</span>
             <label htmlFor="filtres">Filtres :</label>
-            <select defaultValue="any:any" id="filtres" name="filtres" onChange={toRef}>
+            <select data-testid="select" defaultValue="any:any" id="filtres" name="filtres" onChange={toRef}>
                 <option value="any:any">Tous</option>
                 <option value="location:Paris">Paris</option>
                 <option value="location:HorsParis">Hors Paris</option>

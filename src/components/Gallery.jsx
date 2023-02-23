@@ -14,7 +14,7 @@ const Gallery = (props) => {
     }
 
     return (
-    <section id="gallery">
+    <section data-testid="gallery" id="gallery">
         {
             (props.dataset && /* if datas got fetched */
                 props.dataset.map((logement) => (<Link className="anchor" to={"hebergement/"+logement.id} key={logement.id}>

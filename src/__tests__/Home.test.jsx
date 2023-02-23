@@ -1,4 +1,4 @@
-// JSX FILE EXT NEEDED
+// !!! JSX FILE EXT NEEDED
 import { render, screen, renderHook, act, waitFor } from '@testing-library/react'
 import userEvent from "@testing-library/user-event"
 import matchers from '@testing-library/jest-dom/matchers'
@@ -6,7 +6,6 @@ import Home from '../pages/Home.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { expect, vi } from 'vitest'
 import mockedDatas from './mockRentalDatas'
-import { useLikesState } from '../hooks/useLikesState.js'
 import React from "react";
 
 
@@ -22,8 +21,8 @@ const getFilenameFromUrl = (url) => {
   return segments[segments.length-1]
 }
 
-// to avoid useLocation / Links issues which needs to be in a router,
-// so rendering <Home/> alone can't be an option
+// can't render Home by itself cause useLocation / Links
+// needs to be rendered into a router
 const MockedRouter = () => { 
   return(
     <BrowserRouter>
@@ -41,21 +40,20 @@ describe('Given I am on the home page', async () => {
     window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
   })
 
-  test('a -partout et ailleurs- banner should be displayed', async () => {
+  test('Immocards should display some titles out of our mocked datas', async () => {
 
     render(<MockedRouter />)
 
-    // wait for the right rerender before proceeding (the one triggered by fetch / rendering the articles in the gallery) before moving on
     await waitFor(() => screen.getAllByTestId('favicon'))
 
     expect(screen.getByText(/partout et ailleurs/i)).toBeInTheDocument()
-    expect(screen.getByText(/Appartement cosy/i)).toBeInTheDocument()
-    expect(screen.getByText(/Magnifique appartement proche Canal Saint Martin/i)).toBeInTheDocument()
-    expect(screen.getByText(/Studio de charme - Buttes Chaumont/i)).toBeInTheDocument()
+    expect(screen.getByText(mockedDatas[0].title)).toBeInTheDocument()
+    expect(screen.getByText(mockedDatas[1].title)).toBeInTheDocument()
+    expect(screen.getByText(mockedDatas[2].title)).toBeInTheDocument()
 
   })
 
-  test('If rental 1 & 3 are added to favs & 2 isnt then 1 & 3 should display a fav icon while 2 should display a non fav one', async () => {
+  test('If rentals 1 & 3 are added to favs, then immocards 1 & 3 should display a fav icon while 2 should display the opposite one', async () => {
 
     render(<MockedRouter />)
 
@@ -67,12 +65,30 @@ describe('Given I am on the home page', async () => {
     userEvent.click(favIcons[2])
 
     await waitFor( async () => expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg'))
-    expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg')
     expect(getFilenameFromUrl(favIcons[1].src)).toBe('favoutline.svg')
+    expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg')
 
     bodytoTestFile()
 
   })
+})
+
+test('if I put on <4 étoiles et plus> in the select, the 3rd immocard shouldnt be displayed', async () => {
+
+  render(<MockedRouter />)
+
+  await waitFor( async () => screen.getAllByTestId('favicon'))
+
+  const select = screen.getByTestId('select')
+
+  userEvent.selectOptions(select, "rating:4")
+
+  await waitFor( async () => expect(screen.getByTestId('gallery').children.length).toEqual(2))
+  expect(screen.getByText(mockedDatas[0].title)).toBeInTheDocument()
+  expect(screen.getByText(mockedDatas[1].title)).toBeInTheDocument()
+  expect(screen.queryByText(mockedDatas[2].title)).not.toBeInTheDocument() // can't use getbytext cause throws an error when element is missing
+
+
 })
 
 /*

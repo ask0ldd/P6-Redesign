@@ -12,7 +12,7 @@ export function useFetch(url, filter, setResults) {
         if(filter[0] === "any" && filter[1] === "any") return datas
         switch(filter[0])
         {
-            case 'rating': return datas.filter(data => data[filter[0]] === filter[1])
+            case 'rating': return datas.filter(data => data[filter[0]] >= filter[1])
             case 'tags' : return datas.filter(data => data[filter[0]].includes(filter[1]))
             case 'location' :
                 if (filter[1] === "Paris") return datas.filter(data => data[filter[0]].includes(filter[1]))
