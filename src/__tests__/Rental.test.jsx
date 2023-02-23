@@ -184,9 +184,7 @@ describe('Given I am on the rental page', async () => {
 
 })
 
-// rotation fleche
-
-test ('When a wrong Id is passed to the page component, page 404 should be rendered', async () => {
+test ('When a non existing Id is passed to the rental page, page 404 should be rendered', async () => {
   const mockedJsonPromise = Promise.resolve(mockedDatas)
   const mockedFetchPromise = Promise.resolve({ json: () => mockedJsonPromise })
   window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
