@@ -69,20 +69,54 @@ describe('Given I am on the rental page', async () => {
     window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
   })
 
-  test ('', async () => {
+  test ('all the elements are rendered when an Id is passed', async () => {
 
-    render(<MockedRouter />)
+    act(() => {
+      render(<MockedRouter />)
+    })
 
     await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
+    // expect(screen.getByTestId('rentalDetails')).toBeInTheDocument()
     expect(screen.getByText(/Appartement cosy/i)).toBeInTheDocument()
     expect(screen.getByText(/Batignolle/i)).toBeInTheDocument()
     expect(screen.getByText(/Montmartre/i)).toBeInTheDocument()
     expect(screen.getByText(/Nathalie/i)).toBeInTheDocument()
     expect(screen.getByText(/Jean/i)).toBeInTheDocument()
     expect(screen.getAllByTestId('fullstar').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getByText(/Description/i)).toBeInTheDocument()
+    expect(screen.getByText(/Equipements/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Votre maison loin de chez vous/i)).not.toBeInTheDocument()
 
+    // bodytoTestFile()
+
+  })
+
+  test ('when i click on description, the collapse open itself and show the right datas', async () => {
+    act(() => {
+      render(<MockedRouter />)
+    })
+
+    await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
+
+    expect(screen.queryByText(/Votre maison loin de chez vous/i)).not.toBeInTheDocument()
+    const descCollapse = screen.queryByText(/Description/i)
+    userEvent.click(descCollapse)
+    await waitFor( () => expect(screen.queryByText(/Votre maison loin de chez vous/i)).toBeInTheDocument())
     bodytoTestFile()
+  })
 
+  test ('when i click on equipements, the collapse open itself and show the right datas', async () => {
+    act(() => {
+      render(<MockedRouter />)
+    })
+
+    await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
+
+    expect(screen.queryByText(/Équipements de base/i)).not.toBeInTheDocument()
+    const descCollapse = screen.queryByText(/Equipements/i)
+    userEvent.click(descCollapse)
+    await waitFor( () => expect(screen.queryByText(/Équipements de base/i)).toBeInTheDocument())
+    bodytoTestFile()
   })
 
 })
