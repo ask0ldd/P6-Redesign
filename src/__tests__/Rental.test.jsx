@@ -3,7 +3,8 @@ import { render, screen, renderHook, act, waitFor } from '@testing-library/react
 import userEvent from "@testing-library/user-event"
 import matchers from '@testing-library/jest-dom/matchers'
 import Rental from '../pages/Rental.jsx'
-import { BrowserRouter } from 'react-router-dom'
+import Page404 from '../pages/Page404.jsx'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { expect, vi } from 'vitest'
 import mockedDatas from './mockRentalDatas'
 import React from "react";
@@ -56,6 +57,17 @@ const MockedRouter = () => {
   return(
     <BrowserRouter>
       <Rental id='c67ab8a7'/>
+    </BrowserRouter>
+  )
+}
+
+const MockedRouterWithWrongId = () => { 
+  return(
+    <BrowserRouter>
+      <Routes>
+          <Route path='/404' element={<Page404 />} />
+          <Route path="*" element={<Rental id='xxxxxx'/>} />
+      </Routes>
     </BrowserRouter>
   )
 }
@@ -172,6 +184,15 @@ describe('Given I am on the rental page', async () => {
 
 })
 
-// if next & last
-
 // rotation fleche
+
+test ('When a wrong Id is passed to the page component, page 404 should be rendered', async () => {
+  const mockedJsonPromise = Promise.resolve(mockedDatas)
+  const mockedFetchPromise = Promise.resolve({ json: () => mockedJsonPromise })
+  window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
+  act(() => {
+    render(<MockedRouterWithWrongId />)
+  })
+  await waitFor( () => expect(screen.getByTestId('main404')).toBeInTheDocument())
+  bodytoTestFile()
+})
