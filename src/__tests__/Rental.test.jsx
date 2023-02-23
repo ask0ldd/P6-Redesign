@@ -62,21 +62,24 @@ const MockedRouter = () => {
 
 describe('Given I am on the rental page', async () => {
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // recreate two successive promises to mock fetch behavior
     const mockedJsonPromise = Promise.resolve(mockedDatas)
     const mockedFetchPromise = Promise.resolve({ json: () => mockedJsonPromise })
     window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
-  })
-
-  test ('all the elements are rendered when an Id is passed', async () => {
 
     act(() => {
       render(<MockedRouter />)
     })
-
     await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
-    // expect(screen.getByTestId('rentalDetails')).toBeInTheDocument()
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
+  test ('When an Id is passed to the page component, all the right datas should be rendered', async () => {
+    
     expect(screen.getByText(/Appartement cosy/i)).toBeInTheDocument()
     expect(screen.getByText(/Batignolle/i)).toBeInTheDocument()
     expect(screen.getByText(/Montmartre/i)).toBeInTheDocument()
@@ -86,57 +89,89 @@ describe('Given I am on the rental page', async () => {
     expect(screen.getByText(/Description/i)).toBeInTheDocument()
     expect(screen.getByText(/Equipements/i)).toBeInTheDocument()
     expect(screen.queryByText(/Votre maison loin de chez vous/i)).not.toBeInTheDocument()
-
-    // bodytoTestFile()
-
   })
 
-  test ('when i click on description, the collapse open itself and show the right datas', async () => {
-    act(() => {
-      render(<MockedRouter />)
-    })
-
-    await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
-
+  test ('when i click on description, the collapse should open itself and show the right datas', async () => {
     expect(screen.queryByText(/Votre maison loin de chez vous/i)).not.toBeInTheDocument()
     const descCollapse = screen.queryByText(/Description/i)
+
     userEvent.click(descCollapse)
     await waitFor( () => expect(screen.queryByText(/Votre maison loin de chez vous/i)).toBeInTheDocument())
-    bodytoTestFile()
   })
 
-  test ('when i click on equipements, the collapse open itself and show the right datas', async () => {
-    act(() => {
-      render(<MockedRouter />)
-    })
-
-    await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
-
+  test ('when i click on equipements, the collapse should open itself and show the right datas', async () => {
     expect(screen.queryByText(/Équipements de base/i)).not.toBeInTheDocument()
+
     const descCollapse = screen.queryByText(/Equipements/i)
     userEvent.click(descCollapse)
     await waitFor( () => expect(screen.queryByText(/Équipements de base/i)).toBeInTheDocument())
-    // bodytoTestFile()
   })
 
-  test ('when i click on the right arrow, the next image is displayed', async () => {
-    act(() => {
-      render(<MockedRouter />)
-    })
-
-    await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
-
+  test ('when i click on the right arrow and the current image isnt the last one, the next image should be displayed', async () => {
     const currentImgSrc = screen.getByTestId('slideshowImg').src
     expect('loc1.jpg' === getFilenameFromUrl(currentImgSrc)).toBeTruthy()
+
     const rightArrow = screen.getByTestId('slideshowRightArrow')
     userEvent.click(rightArrow)
     await waitFor( () => expect(screen.getByTestId('slideshowImg').src).not.toBe(currentImgSrc))
+
     const newImgSrc = screen.getByTestId('slideshowImg').src
     expect('loc9.jpg' === getFilenameFromUrl(newImgSrc)).toBeTruthy()
-    bodytoTestFile()
   })
 
+  test ('when i click on the left arrow and the current image isnt the first one, the previous image should be displayed', async () => {
+    let currentImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc1.jpg' === getFilenameFromUrl(currentImgSrc)).toBeTruthy()
+
+    const rightArrow = screen.getByTestId('slideshowRightArrow')
+    const leftArrow = screen.getByTestId('slideshowLeftArrow')
+    userEvent.click(rightArrow)
+    await waitFor( () => expect(screen.getByTestId('slideshowImg').src).not.toBe(currentImgSrc))
+
+    let newImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc9.jpg' === getFilenameFromUrl(newImgSrc)).toBeTruthy()
+    currentImgSrc = newImgSrc
+
+    userEvent.click(leftArrow)
+    await waitFor( () => expect(screen.getByTestId('slideshowImg').src).not.toBe(currentImgSrc))
+
+    newImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc1.jpg' === getFilenameFromUrl(newImgSrc)).toBeTruthy()
+  })
+
+  test ('when i click on the left arrow and the current image is the first one, the last image should be displayed', async () => {
+    const currentImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc1.jpg' === getFilenameFromUrl(currentImgSrc)).toBeTruthy()
+
+    const leftArrow = screen.getByTestId('slideshowLeftArrow')
+    userEvent.click(leftArrow)
+    await waitFor( () => expect(screen.getByTestId('slideshowImg').src).not.toBe(currentImgSrc))
+
+    const newImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc16.jpg' === getFilenameFromUrl(newImgSrc)).toBeTruthy()
+  })
+
+  test ('when i click on the right arrow and the current image is the last one, the first image should be displayed', async () => {
+    let currentImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc1.jpg' === getFilenameFromUrl(currentImgSrc)).toBeTruthy()
+
+    const leftArrow = screen.getByTestId('slideshowLeftArrow')
+    const rightArrow = screen.getByTestId('slideshowRightArrow')
+    userEvent.click(leftArrow)
+    await waitFor( () => expect(screen.getByTestId('slideshowImg').src).not.toBe(currentImgSrc))
+    
+    let newImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc16.jpg' === getFilenameFromUrl(newImgSrc)).toBeTruthy()
+    currentImgSrc = screen.getByTestId('slideshowImg').src
+
+    userEvent.click(rightArrow)
+    await waitFor( () => expect(screen.getByTestId('slideshowImg').src).not.toBe(currentImgSrc))
+    newImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc1.jpg' === getFilenameFromUrl(newImgSrc)).toBeTruthy()
+  })
 
 })
 
-// next img / previous img / if next & last / if prev & first
+// if next & last
+
+// rotation fleche
