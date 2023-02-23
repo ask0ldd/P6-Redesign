@@ -44,7 +44,7 @@ describe('Given I am on the home page', async () => {
 
     render(<MockedRouter />)
 
-    await waitFor(() => screen.getAllByTestId('favicon'))
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
 
     expect(screen.getByText(/partout et ailleurs/i)).toBeInTheDocument()
     expect(screen.getByText(mockedDatas[0].title)).toBeInTheDocument()
@@ -57,14 +57,14 @@ describe('Given I am on the home page', async () => {
 
     render(<MockedRouter />)
 
-    await waitFor( async () => screen.getAllByTestId('favicon'))
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
 
     const favIcons = screen.getAllByTestId('favicon')
 
     userEvent.click(favIcons[0])
     userEvent.click(favIcons[2])
 
-    await waitFor( async () => expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg'))
+    await waitFor( () => expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg'))
     expect(getFilenameFromUrl(favIcons[1].src)).toBe('favoutline.svg')
     expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg')
 
@@ -77,13 +77,13 @@ test('if I put on <4 étoiles et plus> in the select, the 3rd immocard shouldnt 
 
   render(<MockedRouter />)
 
-  await waitFor( async () => screen.getAllByTestId('favicon'))
+  await waitFor( () => screen.getAllByTestId('favicon'))
 
   const select = screen.getByTestId('select')
 
   userEvent.selectOptions(select, "rating:4")
 
-  await waitFor( async () => expect(screen.getByTestId('gallery').children.length).toEqual(2))
+  await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(2))
   expect(screen.getByText(mockedDatas[0].title)).toBeInTheDocument()
   expect(screen.getByText(mockedDatas[1].title)).toBeInTheDocument()
   expect(screen.queryByText(mockedDatas[2].title)).not.toBeInTheDocument() // can't use getbytext cause throws an error when element is missing
