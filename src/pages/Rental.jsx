@@ -11,7 +11,7 @@ import { useFetch } from '../hooks/useFetch'
 
 function Rental({id}) {
 
-  let rentalId = useParams().id || id; // get id from the uri or from the props when testing
+  let rentalId = useParams().id || id; // get id from the uri or from the props => testing
 
   let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
 

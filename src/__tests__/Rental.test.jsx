@@ -116,7 +116,27 @@ describe('Given I am on the rental page', async () => {
     const descCollapse = screen.queryByText(/Equipements/i)
     userEvent.click(descCollapse)
     await waitFor( () => expect(screen.queryByText(/Équipements de base/i)).toBeInTheDocument())
+    // bodytoTestFile()
+  })
+
+  test ('when i click on the right arrow, the next image is displayed', async () => {
+    act(() => {
+      render(<MockedRouter />)
+    })
+
+    await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
+
+    const currentImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc1.jpg' === getFilenameFromUrl(currentImgSrc)).toBeTruthy()
+    const rightArrow = screen.getByTestId('slideshowRightArrow')
+    userEvent.click(rightArrow)
+    await waitFor( () => expect(screen.getByTestId('slideshowImg').src).not.toBe(currentImgSrc))
+    const newImgSrc = screen.getByTestId('slideshowImg').src
+    expect('loc9.jpg' === getFilenameFromUrl(newImgSrc)).toBeTruthy()
     bodytoTestFile()
   })
 
+
 })
+
+// next img / previous img / if next & last / if prev & first

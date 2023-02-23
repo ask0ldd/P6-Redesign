@@ -89,3 +89,5 @@ test('if I select <4 étoiles et plus> in the dropdown, the 3rd immocard shouldn
   expect(screen.queryByText(mockedDatas[2].title)).not.toBeInTheDocument() // can't use getbytext cause it throws an error when there is no match
 
 })
+
+// fav / unfav on one immocard

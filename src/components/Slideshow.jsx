@@ -18,10 +18,10 @@ const Slideshow = (props) => {
 
     return ( // no arrows if one pic only / deal with no pics
     <section className='slideshow'>
-        <img src={imageUrls[indexImg]} alt="temp"/>
+        <img data-testid="slideshowImg" src={imageUrls[indexImg]} alt="temp"/>
         {imageUrls.length > 1 ? <div className="buttons-container"> 
-            <div onClick={prevImg}><img id="prevArrow" src={arrow} alt="arrow previous" /></div>
-            <div onClick={nextImg}><img src={arrow} alt="arrow next" /></div>
+            <div data-testid="slideshowLeftArrow" onClick={prevImg}><img id="prevArrow" src={arrow} alt="arrow previous" /></div>
+            <div data-testid="slideshowRightArrow" onClick={nextImg}><img src={arrow} alt="arrow next" /></div>
             <span className="index">{indexImg+1}/{imageUrls.length}</span>
         </div> : ''}
     </section>
