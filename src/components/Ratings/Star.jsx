@@ -4,7 +4,7 @@ import greystar from '../../assets/greystar.svg'
 
 const Star = (props) => {
     return (
-    <img className="star-red" src={props.src === "redstar" ? redstar : greystar} alt="positive star" />
+    <img data-testid="fullstar" className="star-red" src={props.src === "redstar" ? redstar : greystar} alt="positive star" />
     )
 }
 

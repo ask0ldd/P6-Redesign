@@ -74,7 +74,12 @@ describe('Given I am on the rental page', async () => {
     render(<MockedRouter />)
 
     await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
-
+    expect(screen.getByText(/Appartement cosy/i)).toBeInTheDocument()
+    expect(screen.getByText(/Batignolle/i)).toBeInTheDocument()
+    expect(screen.getByText(/Montmartre/i)).toBeInTheDocument()
+    expect(screen.getByText(/Nathalie/i)).toBeInTheDocument()
+    expect(screen.getByText(/Jean/i)).toBeInTheDocument()
+    expect(screen.getAllByTestId('fullstar').length).toBeGreaterThanOrEqual(1)
 
     bodytoTestFile()
 
