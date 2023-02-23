@@ -5,7 +5,7 @@ import { act, renderHook } from '@testing-library/react'
 import mockedDatas from './mockRentalDatas'
 
 
-const firstItem = 	{
+const firstRental = 	{
   "id": "c67ab8a7",
   "title": "Appartement cosy",
   "cover": "locs/loc1.jpg",
@@ -56,5 +56,5 @@ test('if non filtered mockeddatas item 1 = itself after treatment', () => {
   act(() => {
     datas = filteringData(mockedDatas[0] , ['any', 'any'])
   })
-  expect(datas).toEqual(firstItem);
+  expect(datas).toEqual(firstRental);
 })

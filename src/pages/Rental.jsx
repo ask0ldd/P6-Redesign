@@ -9,9 +9,9 @@ import { useParams } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import { useFetch } from '../hooks/useFetch'
 
-function Rental() {
+function Rental({id}) {
 
-  let rentalId = useParams().id; // get id from the uri
+  let rentalId = useParams().id || id; // get id from the uri or from the props when testing
 
   let subDir = window.location.origin === "https://ask0ldd.github.io" ? "/P6-Redesign" : ""
 

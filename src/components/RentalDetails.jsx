@@ -5,7 +5,7 @@ import Host from './Host'
 
 const RentalDetails = (props) => {
   return (
-  <section id="rentalDetails">
+  <section data-testid="rentalDetails" id="rentalDetails">
     <div id="headingsNtags">
       <h1>{props.datas.title}</h1>
       <p>{props.datas.location}</p>

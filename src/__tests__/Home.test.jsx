@@ -68,16 +68,16 @@ describe('Given I am on the home page', async () => {
     expect(getFilenameFromUrl(favIcons[1].src)).toBe('favoutline.svg')
     expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg')
 
-    bodytoTestFile()
+    //bodytoTestFile()
 
   })
 })
 
-test('if I put on <4 étoiles et plus> in the select, the 3rd immocard shouldnt be displayed', async () => {
+test('if I select <4 étoiles et plus> in the dropdown, the 3rd immocard shouldnt be displayed', async () => {
 
   render(<MockedRouter />)
 
-  await waitFor( () => screen.getAllByTestId('favicon'))
+  await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
 
   const select = screen.getByTestId('select')
 
@@ -86,6 +86,6 @@ test('if I put on <4 étoiles et plus> in the select, the 3rd immocard shouldnt 
   await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(2))
   expect(screen.getByText(mockedDatas[0].title)).toBeInTheDocument()
   expect(screen.getByText(mockedDatas[1].title)).toBeInTheDocument()
-  expect(screen.queryByText(mockedDatas[2].title)).not.toBeInTheDocument() // can't use getbytext cause throws an error when element is missing
+  expect(screen.queryByText(mockedDatas[2].title)).not.toBeInTheDocument() // can't use getbytext cause it throws an error when there is no match
 
 })
