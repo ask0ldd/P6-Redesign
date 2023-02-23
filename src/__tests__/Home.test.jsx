@@ -88,23 +88,4 @@ test('if I put on <4 étoiles et plus> in the select, the 3rd immocard shouldnt 
   expect(screen.getByText(mockedDatas[1].title)).toBeInTheDocument()
   expect(screen.queryByText(mockedDatas[2].title)).not.toBeInTheDocument() // can't use getbytext cause throws an error when element is missing
 
-
 })
-
-/*
-    const onFavIconClick = vi.fn(() => addLike('c67ab8a7'))
-    favIcons[0].addEventListener("click", onFavIconClick)
-    act(() => {
-    userEvent.click(favIcons[0])
-    })
-
-*/
-
-    /*const { result } = renderHook(() => useLikesState())
-
-    const [addLike, storagetoLikesList, removeLike, likesList] = result.current*/
-    
-    /*await act(async () => {
-      // addLike(mockedDatas[2].id)
-      addLike(mockedDatas[0].id) 
-    })*/
