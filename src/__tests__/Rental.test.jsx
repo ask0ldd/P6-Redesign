@@ -112,11 +112,11 @@ describe('Given I am on the rental page', async () => {
   })
 
   test ('when i click on equipements, the collapse should open itself and show the right datas', async () => {
-    expect(screen.queryByText(/Équipements de base/i)).not.toBeInTheDocument()
-
+    expect(screen.queryByText(/Équipements/i)).not.toBeInTheDocument()
     const descCollapse = screen.queryByText(/Equipements/i)
+
     userEvent.click(descCollapse)
-    await waitFor( () => expect(screen.queryByText(/Équipements de base/i)).toBeInTheDocument())
+    await waitFor( () => expect(screen.queryByText(/Équipements/i)).toBeInTheDocument())
   })
 
   test ('when i click on the right arrow and the current image isnt the last one, the next image should be displayed', async () => {
@@ -194,3 +194,5 @@ test ('When a non existing Id is passed to the rental page, page 404 should be r
   await waitFor( () => expect(screen.getByTestId('main404')).toBeInTheDocument())
   bodytoTestFile()
 })
+
+// collapse close

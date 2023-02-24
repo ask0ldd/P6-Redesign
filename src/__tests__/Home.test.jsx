@@ -85,7 +85,39 @@ describe('Given I am on the home page', async () => {
   
   })
 
-  test('If immocard click > fav, if second click unfav', async () => {
+  test('if I select <Paris> in the dropdown, 3 rentals should be displayed', async () => {
+
+    render(<MockedRouter />)
+  
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
+  
+    const select = screen.getByTestId('select')
+  
+    userEvent.selectOptions(select, "location:Paris")
+  
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
+    expect(screen.getByText(mockedDatas[0].title)).toBeInTheDocument()
+    expect(screen.getByText(mockedDatas[1].title)).toBeInTheDocument()
+    expect(screen.queryByText(mockedDatas[2].title)).toBeInTheDocument()
+  })
+
+  test('if I select <HorsParis> in the dropdown, no rentals should be displayed', async () => {
+
+    render(<MockedRouter />)
+  
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
+  
+    const select = screen.getByTestId('select')
+  
+    userEvent.selectOptions(select, "location:HorsParis")
+  
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(0))
+    expect(screen.queryByText(mockedDatas[0].title)).not.toBeInTheDocument()
+    expect(screen.queryByText(mockedDatas[1].title)).not.toBeInTheDocument()
+    expect(screen.queryByText(mockedDatas[2].title)).not.toBeInTheDocument()
+  })
+
+  test('If immocard click > fav, if second click > unfav', async () => {
 
     render(<MockedRouter />)
 
