@@ -1,6 +1,6 @@
 Redesign of an OC Project. Used Vite instead of CRA. Added some functionalities : Filtering, Persistent Likes, ... + Unit tested the whole front with Vitest.
 
-Running Redesing : https://ask0ldd.github.io/P6-Redesign/
+Running Redesign : https://ask0ldd.github.io/P6-Redesign/
 
 The tests are accessible through this folder : src > __tests__
 
