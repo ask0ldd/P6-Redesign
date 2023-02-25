@@ -2,7 +2,7 @@ Redesign of an OC Project. Used Vite instead of CRA. Added some functionalities 
 
 Running Redesing : https://ask0ldd.github.io/P6-Redesign/
 
-The tests are accessible through this folder : https://github.com/ask0ldd/P6-Redesign/tree/main/src/__tests__
+The tests are accessible through this folder : src > __tests__
 
 Needs to work a bit on those test descriptions to gave them following the usual describe / test pattern.
 
