@@ -1,4 +1,5 @@
-.star-red {
+.star-red,
+.star-grey {
   width: 30px;
   height: 30px;
 }
@@ -8,7 +9,8 @@
 }
 
 @media screen and (max-width: 400px) {
-  .star-red {
+  .star-red,
+  .star-grey {
     width: 15px;
     height: 15px;
   }

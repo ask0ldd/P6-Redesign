@@ -172,4 +172,13 @@ describe('Given I am on the home page', async () => {
 
 })
 
+test('If the fetch request is failing, the errorbox should replace the gallery', async () => {
+
+  window.fetch.mockImplementationOnce(() => Promise.reject("API is down"));
+
+  render(<MockedRouter />)
+
+  await waitFor( () => expect(screen.getByTestId('errorbox')).toBeInTheDocument())
+})
+
 // fav / unfav on one immocard

@@ -97,7 +97,7 @@ describe('Given I am on the rental page', async () => {
     expect(screen.getByText(/Montmartre/i)).toBeInTheDocument()
     expect(screen.getByText(/Nathalie/i)).toBeInTheDocument()
     expect(screen.getByText(/Jean/i)).toBeInTheDocument()
-    expect(screen.getAllByTestId('fullstar').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByTestId('redstar').length).toBeGreaterThanOrEqual(1)
     expect(screen.getByText(/Description/i)).toBeInTheDocument()
     expect(screen.getByText(/Equipements/i)).toBeInTheDocument()
     expect(screen.queryByText(/Votre maison loin de chez vous/i)).not.toBeInTheDocument()
@@ -192,7 +192,20 @@ test ('When a non existing Id is passed to the rental page, page 404 should be r
     render(<MockedRouterWithWrongId />)
   })
   await waitFor( () => expect(screen.getByTestId('main404')).toBeInTheDocument())
-  bodytoTestFile()
+  // bodytoTestFile()
+})
+
+test ('If rating = 2, should display 2 red stars & 3 grey stars', async () => {
+  mockedDatas[0]['rating'] = 2
+  const mockedJsonPromise = Promise.resolve(mockedDatas)
+  const mockedFetchPromise = Promise.resolve({ json: () => mockedJsonPromise })
+  window.fetch = vi.fn().mockImplementation(() => mockedFetchPromise)
+  act(() => {
+    render(<MockedRouter />)
+  })
+  await waitFor( () => expect(screen.getByTestId('rentalDetails')).toBeInTheDocument())
+  expect(screen.getAllByTestId('redstar').length).toEqual(2)
+  expect(screen.getAllByTestId('greystar').length).toEqual(3)
 })
 
 // collapse close
