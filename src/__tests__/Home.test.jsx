@@ -52,7 +52,22 @@ describe('Given I am on the home page', async () => {
     expect(screen.getByText(mockedDatas[2].title)).toBeInTheDocument()
   })
 
-  test('If rentals 1 & 3 are added to favs, then immocards 1 & 3 should display a fav icon while 2 should display the opposite one', async () => {
+  test('If immocard click > fav, if second click > unfav', async () => {
+
+    render(<MockedRouter />)
+
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
+
+    const favIcons = screen.getAllByTestId('favicon')
+
+    userEvent.click(favIcons[0])
+    await waitFor( () => expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg'))
+
+    userEvent.click(favIcons[0])
+    await waitFor( () => expect(getFilenameFromUrl(favIcons[0].src)).toBe('favoutline.svg'))
+  })
+
+  test('If rentals 1 & 3 are added to favs and 3 is unfaved then 1 should be faved, 2 & 3 should be non fave', async () => {
 
     render(<MockedRouter />)
 
@@ -62,10 +77,11 @@ describe('Given I am on the home page', async () => {
 
     userEvent.click(favIcons[0])
     userEvent.click(favIcons[2])
+    userEvent.click(favIcons[2])
 
     await waitFor( () => expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg'))
     expect(getFilenameFromUrl(favIcons[1].src)).toBe('favoutline.svg')
-    expect(getFilenameFromUrl(favIcons[2].src)).toBe('favfull.svg')
+    expect(getFilenameFromUrl(favIcons[2].src)).toBe('favoutline.svg')
   })
 
   test('if I select <4 étoiles et plus> in the dropdown, the 3rd immocard shouldnt be displayed', async () => {
@@ -117,19 +133,40 @@ describe('Given I am on the home page', async () => {
     expect(screen.queryByText(mockedDatas[2].title)).not.toBeInTheDocument()
   })
 
-  test('If immocard click > fav, if second click > unfav', async () => {
+  test('if I select <Paris> in the dropdown, no rentals should be displayed', async () => {
 
     render(<MockedRouter />)
-
+  
     await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
+  
+    const select = screen.getByTestId('select')
 
-    const favIcons = screen.getAllByTestId('favicon')
+    userEvent.selectOptions(select, "location:HorsParis")
+  
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(0))
+  
+    userEvent.selectOptions(select, "location:Paris")
+  
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
+    expect(screen.queryByText(mockedDatas[0].title)).toBeInTheDocument()
+    expect(screen.queryByText(mockedDatas[1].title)).toBeInTheDocument()
+    expect(screen.queryByText(mockedDatas[2].title)).toBeInTheDocument()
+  })
 
-    userEvent.click(favIcons[0])
-    await waitFor( () => expect(getFilenameFromUrl(favIcons[0].src)).toBe('favfull.svg'))
+  test('if I select <Appartement> in the dropdown, no rentals should be displayed', async () => {
 
-    userEvent.click(favIcons[0])
-    await waitFor( () => expect(getFilenameFromUrl(favIcons[0].src)).toBe('favoutline.svg'))
+    render(<MockedRouter />)
+  
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(3))
+  
+    const select = screen.getByTestId('select')
+  
+    userEvent.selectOptions(select, "tags:Appartement")
+  
+    await waitFor( () => expect(screen.getByTestId('gallery').children.length).toEqual(1))
+    expect(screen.queryByText(mockedDatas[0].title)).not.toBeInTheDocument()
+    expect(screen.queryByText(mockedDatas[1].title)).toBeInTheDocument()
+    expect(screen.queryByText(mockedDatas[2].title)).not.toBeInTheDocument()
   })
 
 
