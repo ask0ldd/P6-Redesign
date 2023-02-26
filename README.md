@@ -4,7 +4,7 @@ Running Redesign : https://ask0ldd.github.io/P6-Redesign/
 
 The tests are accessible through this folder : src > __tests__
 
-Needs to work a bit on those test descriptions to gave them following the usual describe / test pattern.
+Needs to work a bit on those test descriptions to make them follow the usual describe / test pattern.
 
 Coverage.
 ![coverage](https://user-images.githubusercontent.com/117862447/221330238-855dbe62-436d-4b2c-a4ab-54e955b4a30e.jpg)
